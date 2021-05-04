@@ -5,6 +5,12 @@
 replicaCount: 2
 secret: devqtestjfrog
 
+rollouts:
+  enabled: false
+
+deployment: {}
+  # enabled: false
+
 image:
 
   # repository: qtest.jfrog.io/qtest-docker-dev-local/qtestmanager
@@ -136,3 +142,9 @@ autoscaling:
   maxReplicas: 6
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

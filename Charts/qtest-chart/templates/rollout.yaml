@@ -1,0 +1,72 @@
+{{- if .Values.rollouts.enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: mgr-rollout
+  {{- with .Values.deployment.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    app: test-conductor
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: test-conductor
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: test-conductor
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+        #   livenessProbe:
+        #     httpGet:
+        #       path: /
+        #       port: http
+        #   readinessProbe:
+        #     httpGet:
+        #       path: /
+        #       port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+  minReadySeconds: 30
+  strategy:
+    canary: #Indicates that the rollout should use the Canary strategy
+      maxSurge: "25%"
+      maxUnavailable: 0
+      canaryService: canary-{{ .Values.service.servicename }}
+      stableService: {{ .Values.service.servicename }}
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: 1h # 1 hour
+      - setWeight: 50
+      # Pauses indefinitely until manually resumed
+      - pause: {}
+{{- end }}

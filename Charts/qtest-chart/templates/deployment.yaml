@@ -1,3 +1,4 @@
+{{- if .Values.rollouts.disabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -314,5 +315,6 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
-      imagePullSecrets:
-      - name: {{ .Values.secret }}
+      # imagePullSecrets:
+      # - name: {{ .Values.secret }}
+{{- end }}
