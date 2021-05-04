@@ -64,7 +64,7 @@ jobs:
       - lint-chart
       - lint-docs
       - kubeval-chart
-    strategy:
+    # strategy:
       # matrix:
       #   k8s:
       #     - v1.18.8
