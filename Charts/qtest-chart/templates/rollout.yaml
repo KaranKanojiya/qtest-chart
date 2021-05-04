@@ -303,15 +303,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: qtest-manager-config
-                  key: qTestMgrMailSmtpAuth
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http               
+                  key: qTestMgrMailSmtpAuth             
           resources:
             {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
