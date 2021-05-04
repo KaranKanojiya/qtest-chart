@@ -18,6 +18,7 @@ image:
   # repository: qtest.jfrog.io/qtest-docker-dev-local/qtestmanager
   # repository: agiletrailblazers.jfrog.io/demorepo/agiletrailblazers
   repository: devqtest.jfrog.io/qtest-docker-dev-local/qtestmanager
+  liquibase: qtest.jfrog.io/qtest-docker-dev-local/qtestliquibase
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -28,13 +29,18 @@ service:
   servicename: mgr-service
 
 qTestManager:
+  postgres_host: ""
+  postgres_user: ""
+  postgres_password: ""
   testConductorEnvironment: localhost
   springProfilesActive: postgres,oldTrackingDefect
   clientJdbc:
-    postgresUrl: jdbc:postgresql://qtest.cfhos3kg3k0j.us-east-2.rds.amazonaws.com/qtest
-    postgresUserName: postgres
+    postgresUrl: ""
+    postgresUserName: ""
+    postgresPassword: ""
     postgresReadOnlyUrl: ""
-    postgresReadonlyUserName: ""
+    postgresReadOnlyUserName: ""
+    postgresReadOnlyPassword: ""
   elasticSearch:
     init: false
     disable: true
@@ -51,6 +57,8 @@ qTestManager:
   s3:
     folder: manager
     scanUrl: ""
+    SecretKey: ""
+    AccessKey: ""
   serverAppUrl: http://search:8080
   serverAppUseSecureCookie: true
   serverAppSSLRequired: false
