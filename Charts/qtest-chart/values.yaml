@@ -8,8 +8,8 @@ secret: devqtestjfrog
 rollouts:
   enabled: false
 
-deployment: {}
-  # enabled: false
+deployments:
+  enabled: true
 
 image:
 
@@ -26,14 +26,11 @@ service:
   servicename: mgr-service
 
 qTestManager:
-  postgres_host: ""
-  postgres_user: ""
-  postgres_password: ""
   testConductorEnvironment: localhost
   springProfilesActive: postgres,oldTrackingDefect
   clientJdbc:
-    postgresUrl: ""
-    postgresUserName: ""
+    postgresUrl: jdbc:postgresql://qtest.cfhos3kg3k0j.us-east-2.rds.amazonaws.com/qtest
+    postgresUserName: postgres
     postgresReadOnlyUrl: ""
     postgresReadonlyUserName: ""
   elasticSearch:
@@ -83,9 +80,9 @@ qTestManager:
     url: ""
   tdmSettingUrl: ""
   mail:
-    host: ""
+    host: smtp.mandrillapp.com
     port: 465
-    userName: ""
+    userName: QASymphony
     password: ""
     protocol: smtp
     smtpAuth: true
