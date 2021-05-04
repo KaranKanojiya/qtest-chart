@@ -313,7 +313,7 @@ spec:
           #     path: /
           #     port: http               
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{ toYaml .Values.resources | indent 12 }}
           volumeMounts:
           - name: qtest-data
             mountPath: /mnt/data/storage
