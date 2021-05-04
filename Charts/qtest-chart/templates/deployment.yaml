@@ -335,6 +335,4 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
-      # imagePullSecrets:
-      # - name: {{ .Values.secret }}
 {{- end }}
