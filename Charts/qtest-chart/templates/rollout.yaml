@@ -324,19 +324,19 @@ spec:
               configMapKeyRef:
                 name: qtest-manager-config
                 key: qTestMgrMailSmtpAuth             
-          resources:
-            {{ toYaml .Values.resources | indent 12 }}
-          volumeMounts:
-          - name: qtest-data
-            mountPath: /mnt/data/storage
-        volumes:
+        resources:
+          {{ toYaml .Values.resources | indent 12 }}
+        volumeMounts:
         - name: qtest-data
-        {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ template "qtest-chart.fullname" . }}
-        {{- else }}
-          emptyDir: {}
-        {{- end }}
+          mountPath: /mnt/data/storage
+      volumes:
+      - name: qtest-data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "qtest-chart.fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
   minReadySeconds: 30
   strategy:
     canary:
