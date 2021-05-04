@@ -337,21 +337,9 @@ spec:
         {{- else }}
           emptyDir: {}
         {{- end }}
-    {{- with .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.affinity }}
-      affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
-      tolerations:
-{{ toYaml . | indent 8 }}
-    {{- end }}
   minReadySeconds: 30
   strategy:
-    canary: #Indicates that the rollout should use the Canary strategy
+    canary:
       maxSurge: "25%"
       maxUnavailable: 0
       canaryService: canary-{{ .Values.service.servicename }}
@@ -359,8 +347,7 @@ spec:
       steps:
       - setWeight: 20
       - pause:
-          duration: 1h # 1 hour
+          duration: 1h
       - setWeight: 50
-      # Pauses indefinitely until manually resumed
       - pause: {}
 {{- end }}
