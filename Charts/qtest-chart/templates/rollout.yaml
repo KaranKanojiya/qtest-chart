@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: mgr-rollout
-  {{- with .Values.deployment.annotations }}
+  {{- with .Values.rollouts.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
