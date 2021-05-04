@@ -4,10 +4,10 @@ kind: Service
 metadata:
   name: canary-{{ .Values.service.servicename }}
   labels:
-    app: {{ template "helm-guestbook.name" . }}
-    chart: {{ template "helm-guestbook.chart" . }}
+    app: test-conductor
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    chart: {{ template "qtest-chart.chart" . }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -16,6 +16,6 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ template "helm-guestbook.name" . }}
+    app: test-conductor
     release: {{ .Release.Name }}
 {{- end }}
