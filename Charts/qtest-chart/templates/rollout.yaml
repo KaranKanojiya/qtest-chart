@@ -29,7 +29,7 @@ spec:
         heritage: "{{ .Release.Service }}"
     spec:
       initContainers:
-      - image: "{{ .Values.image.liquibase }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      - image: "{{ .Values.image.liquibase }}:{{ .Values.image.tag }}"
         name: qtestliquibase
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
@@ -49,16 +49,16 @@ spec:
                 name: qtest-manager-secret
                 key: qTestMgrClientjdbcPostgresPassword
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-              containerPort: {{ .Values.services.port }}
-          resources:
-            {{ toYaml .Values.resources | indent 12 }}
-          volumeMounts:
-            - name: qtest-data
-              mountPath: /mnt/data/storage
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.services.port }}
+        resources:
+          {{ toYaml .Values.resources | indent 12 }}
+        volumeMounts:
+          - name: qtest-data
+            mountPath: /mnt/data/storage
       volumes:
       - name: qtest-data
       {{- if .Values.persistence.enabled }}
