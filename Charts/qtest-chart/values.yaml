@@ -108,7 +108,7 @@ ingress:
     annotations:
       canary-by-header: tenantID
       canary-by-header-pattern: 10|11|12|13 # tenantID values
-  path: /
+  path: /*
   # name.<nginx ip>.nip.io
   host: ""
   tls: []

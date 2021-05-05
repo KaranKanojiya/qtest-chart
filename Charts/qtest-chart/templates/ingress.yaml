@@ -11,7 +11,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /*
+          - path: {{ .Values.ingress.path }}
             backend:
               serviceName: {{ .Values.service.servicename }}
               servicePort: {{ .Values.service.port }}
