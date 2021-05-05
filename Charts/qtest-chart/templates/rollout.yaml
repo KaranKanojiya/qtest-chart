@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.services.port }}
               protocol: TCP
           resources:
             {{ toYaml .Values.resources | indent 12 }}
@@ -346,7 +346,7 @@ spec:
       maxSurge: "25%"
       maxUnavailable: 0
       canaryService: canary-{{ .Values.service.servicename }}
-      stableService: {{ .Values.service.servicename }}
+      stableService: {{ .Values.services.servicename }}
       steps:
       - setWeight: 20
       - pause:
