@@ -22,7 +22,7 @@ image:
   pullPolicy: IfNotPresent
   tag: "latest"
 
-services:
+service:
   type: LoadBalancer
   port: 8080
   targetport: 8080

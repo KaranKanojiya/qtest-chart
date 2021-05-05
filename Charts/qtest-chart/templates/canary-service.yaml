@@ -9,9 +9,9 @@ metadata:
     heritage: {{ .Release.Service }}
     chart: {{ template "qtest-chart.chart" . }}
 spec:
-  type: {{ .Values.services.type }}
+  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.services.port }}
+    - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
