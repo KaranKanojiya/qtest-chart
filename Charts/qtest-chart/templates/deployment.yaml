@@ -47,7 +47,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Chart.Name }}
         ports:
-        - containerPort: {{ .Values.services.port }}
+        - containerPort: {{ .Values.service.port }}
           name: http
         env:
            - name: testconductor.environment
