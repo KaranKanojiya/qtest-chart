@@ -332,15 +332,6 @@ spec:
           {{- toYaml . | nindent 12 }}
           {{- end }}
       steps:
-      {{- if .Values.metrics.enabled -}}
-      - analysis:
-          templates:
-          - templateName: success-rate
-            clusterScope: true
-          args:
-          - name: service-name
-            value: {{ .Values.service.servicename }}
-      {{- end }}
       - setWeight: 50
       - pause: {}
 {{- end }}
