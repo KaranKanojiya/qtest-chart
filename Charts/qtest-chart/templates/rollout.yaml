@@ -304,7 +304,6 @@ spec:
                 configMapKeyRef:
                   name: qtest-manager-config
                   key: qTestMgrMailSmtpAuth             
-
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
@@ -325,13 +324,13 @@ spec:
       canaryService: canary-{{ .Values.service.servicename }}
       stableService: {{ .Values.service.servicename }}
       trafficRouting:
+        nginx:
           stableIngress: mgr-ingress
           annotationPrefix: nginx.ingress.kubernetes.io 
           {{- with .Values.ingress.canary.annotations }}
           additionalIngressAnnotations:
           {{- toYaml . | nindent 12 }}
           {{- end }}
-        nginx:
       steps:
       {{- if .Values.metrics.enabled -}}
       - analysis:
