@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 2
-secret: devqtestjfrog
 
 rollouts:
   enabled: false
@@ -14,7 +13,6 @@ deployments:
   enabled: true
 
 image:
-
   # repository: qtest.jfrog.io/qtest-docker-dev-local/qtestmanager
   # repository: agiletrailblazers.jfrog.io/demorepo/agiletrailblazers
   repository: devqtest.jfrog.io/qtest-docker-dev-local/qtestmanager
@@ -100,12 +98,27 @@ qTestManager:
 ingress:
   enabled: false
   annotations:
-    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
+    # alb or nginx
+    kubernetes.io/ingress.class: ""
+    # alb.ingress.kubernetes.io/scheme: internet-facing
+    # alb.ingress.kubernetes.io/target-type: ip
     # alb.ingress.kubernetes.io/subnets: subnet-0af0148f6b11db237, subnet-0703b40274a38ef03, subnet-08b03eaa2622a4fe6
+  canary:
+    annotations:
+      canary-by-header: tenantID
+      canary-by-header-pattern: 10|11|12|13 # tenantID values
+  path: /
+  # name.<nginx ip>.nip.io
+  host: ""
+  tls: []
+
+#metrics for nginx ingress controller for application
+metrics:
+  enabled: false
+  prometheus:
+    address: ""
+    query: ""
 
 persistence:
   enabled: true
