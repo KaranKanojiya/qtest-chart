@@ -90,9 +90,9 @@ qTestManager:
     url: ""
   tdmSettingUrl: ""
   mail:
-    host: smtp.mandrillapp.com
+    host: ""
     port: 465
-    userName: QASymphony
+    userName: ""
     password: ""
     protocol: smtp
     smtpAuth: true
