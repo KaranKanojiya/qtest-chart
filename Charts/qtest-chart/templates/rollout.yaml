@@ -335,7 +335,7 @@ spec:
       - setWeight: 20
       - analysis:
           templates:
-          - templateName: success-rate
+          - templateName: success-rates
             clusterScope: true
           args:
           - name: service-name
