@@ -113,7 +113,7 @@ ingress:
   host: ""
   tls: []
 
-#metrics for nginx ingress controller for application
+# Metrics for nginx ingress controller for application
 metrics:
   enabled: false
   prometheus:
