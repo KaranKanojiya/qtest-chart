@@ -332,6 +332,13 @@ spec:
           {{- toYaml . | nindent 12 }}
           {{- end }}
       steps:
+      - setWeight: 20
+      - analysis:
+          templates:
+          - templateName: success-rate
+            clusterScope: true
+          args:
+          - name: service-name
       - setWeight: 50
       - pause: {}
 {{- end }}
