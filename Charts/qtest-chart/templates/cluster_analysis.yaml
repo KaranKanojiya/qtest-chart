@@ -8,7 +8,6 @@ spec:
   - name: service-name
   metrics:
   - name: success-rates
-#    successCondition: isNaN(result[0]) || result[0] >= 0.10
     successCondition: result[0] >= 0.001
     provider:
       prometheus:
