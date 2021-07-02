@@ -115,7 +115,7 @@ spec:
         # Configure the revproxy listener to listen on the original web application port 8000
         # forwarding to the app on the alternate port 8001 as the upstream
         - name: SIGSCI_REVPROXY_LISTENER
-          value: "http:{listener='http://127.0.0.1:8081',upstreams='http://127.0.0.1:8080',access-log='/dev/stdout'}"
+          value: "http:{listener='http://0.0.0.0:8081',upstreams='http://127.0.0.1:8080',access-log='/dev/stdout'}"
         ports:
         - containerPort: 8081
         securityContext:
