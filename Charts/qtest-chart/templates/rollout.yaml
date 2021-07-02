@@ -33,7 +33,7 @@ spec:
         app: qtest-mgr
         release: {{ .Release.Name }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
     spec:
     {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -90,29 +90,15 @@ spec:
   minReadySeconds: 30
   strategy:
     canary:
-      maxSurge: "25%"
-      maxUnavailable: 0
-      canaryService: canary-{{ .Values.service.servicename }}
-      stableService: {{ .Values.service.servicename }}
-      trafficRouting:
-        {{ .Values.ingress.ingressClassName }}:
-          annotationPrefix: {{ .Values.ingress.canary.annotationPrefix }}
-          {{- with .Values.ingress.canary.annotations }}
-          additionalIngressAnnotations:
-          {{- toYaml . | nindent 12 }}
-          {{- end }}
-          ingress: mgr-ingress
-          servicePort: 443
       steps:
       - setWeight: 20
-      {{- if .Values.metrics.enabled }}
-      - analysis:
-          templates:
-          - templateName: success-rates
-            clusterScope: true
-          args:
-          - name: service-name
-      {{- end }}
-      - setWeight: 50
+      # The following pause step will pause the rollout indefinitely until manually resumed.
+      # Rollouts can be manually resumed by running `kubectl argo rollouts promote ROLLOUT`
       - pause: {}
+      - setWeight: 40
+      - pause: {duration: 40s}
+      - setWeight: 60
+      - pause: {duration: 20s}
+      - setWeight: 80
+      - pause: {duration: 20s}
 {{- end }}
