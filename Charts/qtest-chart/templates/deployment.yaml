@@ -98,6 +98,7 @@ spec:
         volumeMounts:
         - name: qtest-data
           mountPath: /mnt/data/storage
+      {{- if .Values.SigSci.enabled }}
       - name: sigsci-agent
         image: signalsciences/sigsci-agent:latest
         imagePullPolicy: Always
@@ -127,8 +128,11 @@ spec:
         #       if mountPath is changed, but best not to change.
         - name: sigsci-tmp
           mountPath: /sigsci/tmp
+      {{- end }}
       volumes:
+      {{- if .Values.SigSci.enabled }}
       - name: sigsci-tmp
+      {{- end }}
       - name: qtest-data
       {{- if .Values.persistence.existingClaim }}
         persistentVolumeClaim:
