@@ -51,6 +51,11 @@ service:
   # servicePortHttpName: http
   # servicePortHttpsName: https
 
+SigSci:
+  enabled: false
+  accesskeyid: ""
+  secretaccesskey: ""
+
 qTestManager:
   postgres_host: "postgres.local"
   postgres_user: "qtest"
@@ -110,12 +115,12 @@ qTestManager:
 
 ingress:
   enabled: false
-  ingressClassName: ""
-  annotations:
-    kubernetes.io/ingress.class: ""
-  canary:
-    annotationPrefix: ""
-    annotations: {}
+  # ingressClassName: ""
+  # annotations:
+    # kubernetes.io/ingress.class: ""
+  # canary:
+  #   annotationPrefix: ""
+  #   annotations: {}
       # canary-by-header: []
       # canary-by-header-pattern: []
   labels: {}
